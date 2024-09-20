@@ -19,12 +19,13 @@ function Mission_LoadFiles() return {}; end
 -- Diese Funktion wird nach Spielstart aufgerufen.
 --
 function Mission_OnQsbLoaded()
-    API.ActivateDebugMode(false, false, false, true);
-	API.ToggleDisplayScriptErrors(true)
+    API.ActivateDebugMode(false, false, false, false);
+	API.ToggleDisplayScriptErrors(true);
 	SetupGameParameters()
 	
 	local Path = (ISDEBUG == true) and "C:\\Siedler\\" or "maps/externalmap/" ..Framework.GetCurrentMapName().. "/";
 	-- Load Hook
+	Script.Load(Path .. "emxhooklib.bin");
 	Script.Load(Path .. "globalhooklibhandler.lua");
 	HookLibHandler.Init() -- Potential Exit Point
 	
@@ -68,15 +69,15 @@ SetupGameParameters = function()
 	API.SetPlayerPortrait(7, "H_NPC_Monk_AS");
 	API.SetPlayerPortrait(8, "H_NPC_Generic_Trader");
 	
-	API.AddMercenaryOffer(8, Entities.U_AmmunitionCart, 2, 5);
-	API.AddMercenaryOffer(8, Entities.U_MilitaryBandit_Melee_SE, 2, 4);
-	API.AddGoodOffer(8, Goods.G_PoorSword, 2, 2);
-	API.AddGoodOffer(8, Goods.G_PoorBow, 2, 2);
+	API.AddMercenaryOffer(8, Entities.U_AmmunitionCart, 2, 15);
+	API.AddMercenaryOffer(8, Entities.U_MilitaryBandit_Melee_SE, 2, 8);
+	API.AddGoodOffer(8, Goods.G_PoorSword, 2, 12);
+	API.AddGoodOffer(8, Goods.G_PoorBow, 2, 12);
 	
-	API.AddGoodOffer(7, Goods.G_Bread, 2, 1);
-	API.AddGoodOffer(7, Goods.G_Clothes, 2, 1);
-	API.AddGoodOffer(7, Goods.G_Broom, 2, 1);
-	API.AddGoodOffer(7, Goods.G_Beer, 2, 1);
+	API.AddGoodOffer(7, Goods.G_Bread, 2, 10);
+	API.AddGoodOffer(7, Goods.G_Clothes, 2, 10);
+	API.AddGoodOffer(7, Goods.G_Broom, 2, 10);
+	API.AddGoodOffer(7, Goods.G_Beer, 2, 10);
 	
 	API.ActivateSheepBreeding(true)
 	API.ActivateCattleBreeding(true)

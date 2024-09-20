@@ -132,7 +132,7 @@ GlobalCameraSystem.ShowEndBriefing = function()
 		["Page0"] = {
 			-- Relativdarstellung
 			-- Animationsdauer, Position1, Rotation1, Zoom1, Angle1, Position2, Rotation2, Zoom2, Angle2
-			{15, Logic.GetKnightID(1), -60, 2000, 35, Logic.GetKnightID(1), 320, 2000, 15},
+			{15, Logic.GetKnightID(1), -60, 3000, 35, Logic.GetKnightID(1), 320, 4500, 15},
 			-- Hier können weitere Animationen folgen...
 		},
 		["Page1"] = {
@@ -144,7 +144,7 @@ GlobalCameraSystem.ShowEndBriefing = function()
 	
     Briefing.Starting = function(_Data)
 		local posX, posY, posZ = Logic.EntityGetPos(Logic.GetMarketplace(1))
-		Logic.DEBUG_SetSettlerPosition(Logic.GetKnightID(1), posX + 120, posY + 30);
+		Logic.DEBUG_SetSettlerPosition(Logic.GetKnightID(1), posX + 420, posY + 30);
 		
 		Logic.ExecuteInLuaLocalState([[
 			MainBuildingPlacement.RemoveBuildingButton("StartAttack")
