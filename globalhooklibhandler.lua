@@ -1,10 +1,6 @@
 HookLibHandler = {}
 HookLibHandler.Init = function()
 	-- Loader
-	if not EMXHookLibrary then
-		Script.Load("C:\\Siedler\\emxhooklib.bin");
-	end
-	
 	local Result = EMXHookLibrary.Initialize(true)
 	if Result ~= true then
 		Game.LevelStop() -- Does this even do something?
@@ -95,7 +91,7 @@ HookLibHandler.SetupGlobalHookFuncs = function()
 	if Network.GetDesiredLanguage() == "de" then
 		EMXHookLibrary.EditStringTableText(4863, "Turm", true)
 	elseif Network.GetDesiredLanguage() == "en" then
-		EMXHookLibrary.EditStringTableText(5091, "Tower", true)
+		EMXHookLibrary.EditStringTableText(5091, "Tower")
 	end
 	
 	EMXHookLibrary.SetMaxBuildingTaxAmount(1000)
