@@ -127,8 +127,8 @@ HookLibHandler.SetupGlobalHookFuncs = function()
 end
 
 HookLibHandler.SetupColorSetHandling = function()
-	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia02, "SeasonColorSet", 11)
-	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia01, "SeasonColorSet", 11)
+	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia02, "SeasonColorSet", 16)
+	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia01, "SeasonColorSet", 16)
 end
 
 HookLibHandler.InitializeColorSetEntries = function()
@@ -139,7 +139,7 @@ HookLibHandler.InitializeColorSetEntries = function()
 	
 	for i = 1, 4 do	
 		EMXHookLibrary.SetColorSetColorRGB(2, i, {0.7, 0.3, 0.2, 1});
-		EMXHookLibrary.SetColorSetColorRGB(11, i, {210/255, 105/255, 165/255, 1});
+		EMXHookLibrary.SetColorSetColorRGB(16, i, {210/255, 105/255, 165/255, 1});
 	end	
 	
 	Logic.DestroyEntity(GetID("tree01"))
@@ -150,17 +150,20 @@ HookLibHandler.ReplaceModelParams = function()
 	EMXHookLibrary.SetEntityDisplayModelParameters(Entities.B_NPC_Bakery_ME, nil, nil, {Models.Buildings_B_Outpost_2})
 	EMXHookLibrary.ReplaceUpgradeCategoryEntityType(UpgradeCategories.Dummy_00, Entities.B_NPC_Bakery_ME)
 	
-	EMXHookLibrary.ModifyModelPropertiesByReferenceType(Models.Doodads_D_SE_PortalTomb02, Models.Doodads_D_NE_Cliff_Set03_Sheet02, 0)
-	EMXHookLibrary.ModifyModelPropertiesByReferenceType(Models.Doodads_D_ME_PortalTomb01, Models.Doodads_D_NE_Cliff_Set03_Sheet02, 0)
-	EMXHookLibrary.ModifyModelPropertiesByReferenceType(Models.Doodads_D_ME_Grave01, Models.Doodads_D_NE_Cliff_Set03_Sheet02, 0)
-	EMXHookLibrary.ModifyModelPropertiesByReferenceType(Models.Doodads_D_X_Grave01, Models.Doodads_D_NE_Cliff_Set03_Sheet02, 0)
-	EMXHookLibrary.ModifyModelPropertiesByReferenceType(Models.Doodads_D_X_Grave03, Models.Doodads_D_NE_Cliff_Set03_Sheet02, 0)
+	local ReferenceModel = Models.Doodads_D_NE_Cliff_Set03_Sheet02;
+	local WealthModel = Models.Buildings_B_WallGateTurret_ME;
+	local ShipMovementModel = Models.Doodads_D_X_ChestOpenEmpty;
+	
+	local Models = {Models.Doodads_D_SE_PortalTomb02, Models.Doodads_D_ME_PortalTomb01, Models.Doodads_D_ME_Grave01, Models.Doodads_D_X_Grave01, Models.Doodads_D_X_Grave03}
+	for i = 1, #Models do
+		EMXHookLibrary.ModifyModelPropertiesByReferenceType(Models[i], ReferenceModel, 0, true)
+	end
 
-	EMXHookLibrary.SetAndReloadModelSpecificShader(Models.Buildings_B_WallGateTurret_ME, "WealthLightObject")
-	EMXHookLibrary.SetAndReloadModelSpecificShader(Models.Doodads_D_X_ChestOpenEmpty, "ShipMovementEx")
+	EMXHookLibrary.SetAndReloadModelSpecificShader(WealthModel, "WealthLightObject")
+	EMXHookLibrary.SetAndReloadModelSpecificShader(ShipMovementModel, "ShipMovementEx")
 	
 	for i = 1, 6 do
-		Logic.SetModel("ghosttower0" .. i, Models.Buildings_B_WallGateTurret_ME);
+		Logic.SetModel("ghosttower0" .. i, WealthModel);
 	end
 end
 

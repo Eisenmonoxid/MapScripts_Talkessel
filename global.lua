@@ -70,7 +70,7 @@ SetupGameParameters = function()
 	API.SetPlayerPortrait(8, "H_NPC_Generic_Trader");
 	
 	API.AddMercenaryOffer(8, Entities.U_AmmunitionCart, 2, 15);
-	API.AddMercenaryOffer(8, Entities.U_MilitaryBandit_Melee_SE, 2, 8);
+	API.AddGoodOffer(8, Goods.G_Medicine, 2, 12);
 	API.AddGoodOffer(8, Goods.G_PoorSword, 2, 12);
 	API.AddGoodOffer(8, Goods.G_PoorBow, 2, 12);
 	
@@ -83,7 +83,7 @@ SetupGameParameters = function()
 	API.ActivateCattleBreeding(true)
 	API.UseSingleStop(true)
 	API.UseDowngrade(true)
-	API.SetDowngradeCosts(20)
+	API.SetDowngradeCosts(50)
 	API.DisableAutoSave(false)
 	API.AllowExtendedZoom(false) -- why the ... is this even existing???
 	
@@ -132,10 +132,29 @@ GlobalCallbackOverrides = function()
 			]])
 		elseif _CurrentMonth % 2 == 0 then
 			CustomTaxCollection()
+			CheckStoreHouseGoodsAvailability()
 		elseif _CurrentMonth == 9 then
 			StartAttack()
 		end
 	end
+end
+
+CheckStoreHouseGoodsAvailability = function()
+	local GoodsInCategory = {Logic.GetGoodTypesInGoodCategory(GoodCategories.GC_Resource)};
+	local StorehouseID = Logic.GetStoreHouse(1);
+	
+	local Amount = 0
+	for i = 1, #GoodsInCategory do
+		if (GoodsInCategory[i] ~= Goods.G_Salt and GoodsInCategory[i] ~= Goods.G_Dye) and Logic.GetIndexOnOutStockByGoodType(StorehouseID, GoodsInCategory[i]) ~= -1 then
+			Amount = Logic.GetAmountOnOutStockByGoodType(StorehouseID, GoodsInCategory[i])
+			if Amount > 1 then
+				Logic.RemoveGoodFromStock(StorehouseID, GoodsInCategory[i], Amount - 1)
+			end
+			if Amount < 1 then
+				Logic.AddGoodToStock(StorehouseID, GoodsInCategory[i], 1);
+			end
+		end
+    end
 end
 
 CustomTaxCollection = function()
@@ -192,7 +211,7 @@ end
 CurrentAliveArmyID = -1
 GlobalAttacksActive = false
 StartAttack = function()
-	if not GlobalAttacksActive then
+	if not GlobalAttacksActive or not Logic.IsEntityAlive(Logic.GetStoreHouse(3)) then
 		return;
 	end
 

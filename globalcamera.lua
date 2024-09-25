@@ -118,28 +118,23 @@ GlobalCameraSystem.ShowEndBriefing = function()
 		Title        = "",
 		Text         = "",
         Position     = Logic.GetMarketplace(1),
-        Duration     = 35,
+        Duration     = 45,
         DialogCamera = false,
         Rotation     = 270,
         Zoom         = 2000,
         Angle        = 5,
-		FadeOut      = 5,
+		FadeOut      = 8,
 		BarOpacity   = 0,
 		BigBars 	 = false,
 	};
 	
 	Briefing.PageAnimations = {
 		["Page0"] = {
-			-- Relativdarstellung
-			-- Animationsdauer, Position1, Rotation1, Zoom1, Angle1, Position2, Rotation2, Zoom2, Angle2
-			{15, Logic.GetKnightID(1), -60, 3000, 35, Logic.GetKnightID(1), 320, 4500, 15},
-			-- Hier können weitere Animationen folgen...
+			{15, Logic.GetKnightID(1), 0, 3000, 35, Logic.GetKnightID(1), 120, 4000, 15},
 		},
 		["Page1"] = {
-			{30, Logic.GetKnightID(1), 320, 2000, 25, Logic.GetKnightID(1), 10, 18000, 45},
-			-- Hier können weitere Animationen folgen...
+			{30, Logic.GetKnightID(1), 120, 4000, 25, Logic.GetKnightID(1), 360, 20000, 45},
 		},
-		-- Hier können weitere Pages folgen...
 	};
 	
     Briefing.Starting = function(_Data)

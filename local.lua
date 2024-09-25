@@ -59,6 +59,6 @@ end
 
 AddTowerButton = function()
 	MainBuildingPlacement.AddBuildingButton(API.Localize({de = "Turm Bauen", en = "Build Tower"}), API.Localize({de = "Baut einen Turm!", en = "Build a tower!"}), 
-											function() MainBuildingPlacement.ActivateBuildingMode(UpgradeCategories.Dummy_00) end, {16, 4})
+	function() MainBuildingPlacement.ActivateBuildingMode(UpgradeCategories.Dummy_00) end, {16, 4})
 end
 -- #EOF
