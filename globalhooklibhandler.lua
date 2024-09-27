@@ -10,6 +10,7 @@ HookLibHandler.Init = function()
 	
 	HookLibHandler.SetupGlobalHookFuncs()
 	HookLibHandler.SetupEntityCostsAndStocks()
+	HookLibHandler.GlobalModifications()
 	HookLibHandler.CreateGoodTypeRequirements()
 	HookLibHandler.SetupColorSetHandling()
 	HookLibHandler.ReplaceModelParams()
@@ -74,9 +75,19 @@ HookLibHandler.SetupEntityCostsAndStocks = function()
 	
 	EMXHookLibrary.SetEntityTypeFullCost(Entities.U_MilitaryBallista, {Goods.G_Gold, 250, Goods.G_Iron, 0})
 	EMXHookLibrary.SetEntityTypeFullCost(Entities.U_MilitaryTrap, {Goods.G_Gold, 250, Goods.G_Stone, 0})
+end
+
+HookLibHandler.GlobalModifications = function()
+	local Offset = 0;
 	
-	local Offset = (EMXHookLibrary.IsHistoryEdition and 144) or 160 -- Road Cost
+	Offset = (EMXHookLibrary.IsHistoryEdition and 144) or 160 -- Road Cost
 	EMXHookLibrary.Internal.GetLogicPropertiesEx()[Offset](0, Goods.G_Gold)(4, 12)
+
+	Offset = (EMXHookLibrary.IsHistoryEdition and 268) or 288 -- RepairAlarmGood
+	EMXHookLibrary.Internal.GetLogicPropertiesEx()(Offset, Goods.G_Wood)
+	
+	Offset = (EMXHookLibrary.IsHistoryEdition and 276) or 296 -- RepairAlarmGoodProviderCategory
+	EMXHookLibrary.Internal.GetLogicPropertiesEx()(Offset, EntityCategories.GathererBuilding)
 end
 
 HookLibHandler.SetupGlobalHookFuncs = function()
@@ -95,7 +106,7 @@ HookLibHandler.SetupGlobalHookFuncs = function()
 	end
 	
 	EMXHookLibrary.SetMaxBuildingTaxAmount(1000)
-	EMXHookLibrary.SetBuildingKnockDownCompensation(25)
+	EMXHookLibrary.SetBuildingKnockDownCompensation(0)
 	EMXHookLibrary.EditFestivalProperties(175, 15, 15, 90)
 	EMXHookLibrary.SetCathedralCollectAmount(12)
 	EMXHookLibrary.SetAmountOfTaxCollectors(0)
@@ -103,7 +114,7 @@ HookLibHandler.SetupGlobalHookFuncs = function()
 	EMXHookLibrary.SetKnightResurrectionTime(25000)
 	EMXHookLibrary.SetWealthGoodDecayPerSecond(0.3)
 	
-	local SettlerLimits = {65, 65, 95, 125, 300, 300}
+	local SettlerLimits = {65, 65, 95, 185, 300, 300}
 	local SermonSettlerLimits = {25, 45, 65, 90}
 	local SoldierLimits = {36, 60, 91, 126}
 	
@@ -238,7 +249,9 @@ HookLibHandler.ConsumeGoodORIG = GameCallback_ConsumeGood;
 GameCallback_ConsumeGood = function(_Consumer, _Good, _Building)
 	HookLibHandler.ConsumeGoodORIG(_Consumer, _Good, _Building)
 	
-	local CurrentEarnings = Logic.GetBuildingProductEarnings(_Building);
-	Logic.SetBuildingEarnings(_Building, CurrentEarnings + 25);
+	local Earnings = Logic.GetBuildingProductEarnings(_Building);
+	if Earnings ~= nil then
+		Logic.SetBuildingEarnings(_Building, Earnings + 25);
+	end
 end
 -- #EOF

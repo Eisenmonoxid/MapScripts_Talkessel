@@ -20,7 +20,7 @@ function Mission_LoadFiles() return {}; end
 --
 function Mission_OnQsbLoaded()
     API.ActivateDebugMode(false, false, false, false);
-	API.ToggleDisplayScriptErrors(true);
+	API.ToggleDisplayScriptErrors(false);
 	SetupGameParameters()
 	
 	local Path = (ISDEBUG == true) and "C:\\Siedler\\" or "maps/externalmap/" ..Framework.GetCurrentMapName().. "/";
@@ -31,6 +31,8 @@ function Mission_OnQsbLoaded()
 	
 	API.AddScriptEventListener(QSB.ScriptEvents.SaveGameLoaded, function()
 		HookLibHandler.Init() -- Potential Exit Point
+		API.ActivateDebugMode(false, false, false, false);
+		API.ToggleDisplayScriptErrors(false);
 	end);
 	
 	Script.Load(Path .. "globalquestsystem.lua");

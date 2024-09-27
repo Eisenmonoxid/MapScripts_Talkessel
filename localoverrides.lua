@@ -256,6 +256,7 @@ OverrideLocalFunctions = function()
 		local GoodAmount = Logic.GetAmountOnInStockByIndex(EntityID, _index)
 		local GoodType = Logic.GetGoodTypeOnInStockByIndex(EntityID, _index)
 			
+		local Size = {GUI.GetScreenSize()};
 		if _index == 0 then
 			if GUI_BuildingInfo.StockWidgetPositions[1] == 0 then
 				local posX, posY = XGUIEng.GetWidgetScreenPosition(CurrentWidgetID)
@@ -263,7 +264,7 @@ OverrideLocalFunctions = function()
 				GUI_BuildingInfo.StockWidgetPositions[2] = posY
 			end
 				
-			XGUIEng.SetWidgetScreenPosition(CurrentWidgetID, GUI_BuildingInfo.StockWidgetPositions[1] - 10, GUI_BuildingInfo.StockWidgetPositions[2] - 15);
+			XGUIEng.SetWidgetScreenPosition(CurrentWidgetID, GUI_BuildingInfo.StockWidgetPositions[1] - ((Size[2] / 1080) * 10), GUI_BuildingInfo.StockWidgetPositions[2] - ((Size[2] / 1080) * 15));
 		else
 			if GUI_BuildingInfo.StockWidgetPositions[1] == 0 then
 				local posX, posY = XGUIEng.GetWidgetScreenPosition(CurrentWidgetID)
@@ -271,7 +272,7 @@ OverrideLocalFunctions = function()
 				GUI_BuildingInfo.StockWidgetPositions[2] = posY
 			end
 				
-			XGUIEng.SetWidgetScreenPosition(CurrentWidgetID, GUI_BuildingInfo.StockWidgetPositions[1] - 10, GUI_BuildingInfo.StockWidgetPositions[2] + 25);
+			XGUIEng.SetWidgetScreenPosition(CurrentWidgetID, GUI_BuildingInfo.StockWidgetPositions[1] - ((Size[2] / 1080) * 10), GUI_BuildingInfo.StockWidgetPositions[2] + ((Size[2] / 1080) * 25));
 		end
 		
 		SetIcon(CurrentWidgetID, g_TexturePositions.Goods[GoodType])
