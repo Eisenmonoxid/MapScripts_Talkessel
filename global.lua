@@ -89,14 +89,18 @@ SetupGameParameters = function()
 	API.DisableAutoSave(false)
 	API.AllowExtendedZoom(false) -- why the ... is this even existing???
 	
+	MakeInvulnerable(Logic.GetHeadquarters(1))
+	MakeInvulnerable(Logic.GetStoreHouse(1))
+	MakeInvulnerable(Logic.GetCathedral(1))
+	
 	Logic.AddGoodToStock(Logic.GetHeadquarters(1), Goods.G_Gold, 3000)
 	Logic.SetVisible(Logic.GetStoreHouse(1), false)
 	
 	AIPlayer:new(2, AIProfile_Skirmish)
 	AIPlayer:new(3, AIProfile_Skirmish)
 	
-	SetPlayerMoral(2, 2.1)
-	SetPlayerMoral(3, 2.1)
+	SetPlayerMoral(2, 2.4)
+	SetPlayerMoral(3, 2.4)
 	SetPlayerMoral(3, 1.5)
 	
 	GlobalCallbackOverrides()

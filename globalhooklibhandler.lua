@@ -78,16 +78,12 @@ HookLibHandler.SetupEntityCostsAndStocks = function()
 end
 
 HookLibHandler.GlobalModifications = function()
-	local Offset = 0;
-	
-	Offset = (EMXHookLibrary.IsHistoryEdition and 144) or 160 -- Road Cost
+	local Offset = (EMXHookLibrary.IsHistoryEdition and 140) or 160 -- Road Cost
 	EMXHookLibrary.Internal.GetLogicPropertiesEx()[Offset](0, Goods.G_Gold)(4, 12)
-
-	Offset = (EMXHookLibrary.IsHistoryEdition and 268) or 288 -- RepairAlarmGood
-	EMXHookLibrary.Internal.GetLogicPropertiesEx()(Offset, Goods.G_Wood)
-	
-	Offset = (EMXHookLibrary.IsHistoryEdition and 276) or 296 -- RepairAlarmGoodProviderCategory
-	EMXHookLibrary.Internal.GetLogicPropertiesEx()(Offset, EntityCategories.GathererBuilding)
+	--Offset = (EMXHookLibrary.IsHistoryEdition and 268) or 288 -- RepairAlarmGood
+	--EMXHookLibrary.Internal.GetLogicPropertiesEx()(Offset, Goods.G_Gold)
+	--Offset = (EMXHookLibrary.IsHistoryEdition and 276) or 296 -- RepairAlarmGoodProviderCategory
+	--EMXHookLibrary.Internal.GetLogicPropertiesEx()(Offset, EntityCategories.Headquarters)
 end
 
 HookLibHandler.SetupGlobalHookFuncs = function()
@@ -138,8 +134,8 @@ HookLibHandler.SetupGlobalHookFuncs = function()
 end
 
 HookLibHandler.SetupColorSetHandling = function()
-	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia02, "SeasonColorSet", 16)
-	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia01, "SeasonColorSet", 16)
+	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia02, "SeasonColorSet", 17)
+	EMXHookLibrary.SetEntityDisplayProperties(Entities.R_NA_Tree_Arcacia01, "SeasonColorSet", 17)
 end
 
 HookLibHandler.InitializeColorSetEntries = function()
@@ -150,7 +146,7 @@ HookLibHandler.InitializeColorSetEntries = function()
 	
 	for i = 1, 4 do	
 		EMXHookLibrary.SetColorSetColorRGB(2, i, {0.7, 0.3, 0.2, 1});
-		EMXHookLibrary.SetColorSetColorRGB(16, i, {210/255, 105/255, 165/255, 1});
+		EMXHookLibrary.SetColorSetColorRGB(17, i, {210/255, 105/255, 165/255, 1});
 	end	
 	
 	Logic.DestroyEntity(GetID("tree01"))
